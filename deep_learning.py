@@ -39,7 +39,6 @@ plt.axis('off')
 
 # unisco la sequenza di array sull'asse delle righe (axis = 0)
 X = np.concatenate((x_l[204:409], x_l[822:1027] ), axis=0) 
-X = x_l
 zero  = np.zeros(205)
 one   = np.ones(205)
 Y = np.concatenate((zero, one), axis=0).reshape(X.shape[0],1)
