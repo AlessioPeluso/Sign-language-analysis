@@ -62,5 +62,25 @@ def forward_propagation_NN(x_train, parameters):
 
 ![](https://image.ibb.co/nyR9LU/as.jpg)
 
+```
+def compute_cost_NN(A2, Y, parameters):
+    logprobs = np.multiply(np.log(A2),Y)
+    cost = -np.sum(logprobs)/Y.shape[1]
+    return cost
+```
 
-
+Il passo successivo è implementare la *Backward Propagation*
+```
+def backward_propagation_NN(parameters, cache, X, Y):
+    dZ2 = cache["A2"]-Y
+    dW2 = np.dot(dZ2,cache["A1"].T)/X.shape[1]
+    db2 = np.sum(dZ2,axis =1,keepdims=True)/X.shape[1]
+    dZ1 = np.dot(parameters["weight2"].T,dZ2)*(1 - np.power(cache["A1"], 2))
+    dW1 = np.dot(dZ1,X.T)/X.shape[1]
+    db1 = np.sum(dZ1,axis =1,keepdims=True)/X.shape[1]
+    grads = {"dweight1": dW1,
+             "dbias1": db1,
+             "dweight2": dW2,
+             "dbias2": db2}
+    return grads
+```
